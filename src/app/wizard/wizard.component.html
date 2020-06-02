@@ -1,1 +1,42 @@
-<p>wizard works!</p>
+<mat-horizontal-stepper labelPosition="bottom">
+  <ng-container *ngFor="let step of formDefinition.steps">
+    <mat-step [label]="step.title">
+      <div class="question" *ngFor="let question of step.questions">
+        <h2 class="question__title">{{ question.title }}</h2>
+
+        <ng-container [ngSwitch]="question.type">
+
+          <div class="question__input" *ngSwitchCase="QUESTION_TYPES.radio">
+            <mat-radio-group>
+              <mat-radio-button
+                *ngFor="let option of question.options"
+                [value]="option.value">
+                {{ option.label }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div> <!-- Radio Question Case -->
+
+          <div class="question__input" *ngSwitchCase="QUESTION_TYPES.longText">
+            <mat-form-field appearance="fill">
+              <mat-label>{{ question.label }}</mat-label>
+              <textarea matInput [placeholder]="question.placeholder ? question.placeholder : undefined"></textarea>
+            </mat-form-field>
+          </div> <!-- Long Text Case -->
+
+          <div class="question__input" *ngSwitchCase="QUESTION_TYPES.shortText">
+            <mat-form-field appearance="fill">
+              <mat-label>{{ question.label }}</mat-label>
+              <input type="text" matInput>
+            </mat-form-field>
+          </div> <!-- Long Text Case -->
+
+        </ng-container> <!-- NgSwitch -->
+      </div> <!-- *ngFor="let question of step.questions" -->
+
+      <div>
+        <button mat-button matStepperPrevious type="button">Back</button>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </mat-step>
+  </ng-container> <!-- *ngFor="let step of formDefinition.steps" -->
+</mat-horizontal-stepper>
