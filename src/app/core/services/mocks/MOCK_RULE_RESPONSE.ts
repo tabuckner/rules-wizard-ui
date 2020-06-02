@@ -1,12 +1,12 @@
 import { RuleResponse } from 'src/app/models/rule-response';
 
 export const MOCK_RULE_RESPONSE: RuleResponse = {
-  rule: `
-// Copyright (c) 2017 Datical, Inc. All Rights Reserved.
+rule: `
+// Copyright (c) 2020 Datical, Inc. All Rights Reserved.
 /*
-@author Laurent Rochette
+@author Taylor Buckner
 @version 1.0
-@date July 19, 2017
+@date June 2, 2020
 @description Error if GRANT is detected
 */
 
@@ -28,5 +28,5 @@ rule "Error when GRANTs are in SQL Scripts"
       wc.getSqlFile().getName() + " on lines: " + wc.getLineNumbers("grant");
     insert(new Response(ResponseType.FAIL, errorMessage, drools.getRule().getName()));
   end
-  `
+`
 };
