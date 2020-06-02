@@ -1,5 +1,8 @@
+<div class="actions">
+  <button mat-stroked-button (click)="onClickStartOver()">Start Over</button>
+</div>
 <form [formGroup]="wizardForm">
-  <mat-horizontal-stepper labelPosition="bottom">
+  <mat-horizontal-stepper labelPosition="bottom" #stepper>
     <ng-container *ngFor="let step of formDefinition.steps">
       <mat-step [label]="step.title">
         <div class="question" *ngFor="let question of step.questions">
@@ -47,5 +50,3 @@
     </mat-step>
   </mat-horizontal-stepper>
 </form>
-
-<pre *ngIf="newRule$ | async"><code>{{ (newRule$ | async).rule }}</code></pre>

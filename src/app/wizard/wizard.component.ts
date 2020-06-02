@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LevelTypes } from '../enums/level-types.enum';
 import { RuleTypes } from '../enums/rule-types.enum';
 import { WizardFormModelDefinition } from '../models/wizard-form-model-definition';
 import { QuestionTypes } from '../enums/question-types.enum';
 import { ApiService } from '../core/services/api.service';
-import { Observable } from 'rxjs';
-import { RuleResponse } from '../models/rule-response';
 import { MatDialog } from '@angular/material/dialog'
 import { RuleDialogComponent, RuleDialogData } from '../rule-dialog/rule-dialog.component';
 import { FormDefinitionService } from '../core/services/form-definition.service';
+import { MatStepper } from '@angular/material/stepper';
 
 interface WizardFormModel {
   ruleType: RuleTypes;
@@ -26,9 +25,9 @@ interface WizardFormModel {
 })
 export class WizardComponent implements OnInit {
   QUESTION_TYPES = QuestionTypes;
-  newRule$: Observable<RuleResponse>;
   wizardForm: FormGroup;
   formDefinition: WizardFormModelDefinition = this.formDefinitionService.getWizardFormDefinition();
+  @ViewChild('stepper') public stepper: MatStepper;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -59,6 +58,11 @@ export class WizardComponent implements OnInit {
       const ruleDialogData: RuleDialogData = { rule: data.rule, fileName: ruleFileName };
       this.dialogController.open(RuleDialogComponent, { data: ruleDialogData });
     });
+  }
+
+  public onClickStartOver() {
+    this.wizardForm.reset();
+    this.stepper.reset();
   }
 
   private getRuleFileName(): string {
