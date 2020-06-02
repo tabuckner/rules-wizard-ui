@@ -27,6 +27,7 @@ export class WizardComponent implements OnInit {
         title: 'Choose Your Path',
         questions: [
           {
+            key: 'ruleType',
             type: QuestionTypes.radio,
             title: 'What are you looking to do?',
             options: [
@@ -40,6 +41,7 @@ export class WizardComponent implements OnInit {
         title: 'SQL',
         questions: [
           {
+            key: 'sql',
             type: QuestionTypes.longText,
             title: 'What SQL are we looking for?',
             label: 'SQL',
@@ -51,11 +53,13 @@ export class WizardComponent implements OnInit {
         title: 'Rule',
         questions: [
           {
+            key: 'message',
             type: QuestionTypes.longText,
             title: 'What is the message to display to the end user?',
             label: 'Message'
           },
           {
+            key: 'level',
             type: QuestionTypes.radio,
             title: 'Rule level (ERROR = Stop, WARN = notify and continue)?',
             options: [
@@ -64,15 +68,12 @@ export class WizardComponent implements OnInit {
             ]
           },
           {
+            key: 'ruleName',
             type: QuestionTypes.shortText,
             title: 'What will this rule be called?',
             label: 'Rule Name'
           },
         ]
-      },
-      {
-        title: 'Confirm Your Rule',
-        questions: []
       }
     ]
   };
@@ -81,11 +82,18 @@ export class WizardComponent implements OnInit {
 
   ngOnInit(): void {
     this.wizardForm = this.formBuilder.group({
-      ruleType: ['', Validators.required],
+      ruleType: [undefined, Validators.required],
       ruleName: ['', Validators.required],
       sql: ['', Validators.required],
       message: ['', Validators.required],
       level: ['', Validators.required],
     });
+
+    this.wizardForm.valueChanges.subscribe(console.warn);
+  }
+
+  public onCreateRule() {
+    const formValue = this.wizardForm.value;
+    console.warn('Would Submit', formValue);
   }
 }
