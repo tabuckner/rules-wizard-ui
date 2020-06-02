@@ -66,6 +66,7 @@ export class WizardComponent implements OnInit {
   }
 
   private getRuleFileName(): string {
-    return this.wizardForm.get('ruleName').value || 'MyRule' + '.drl';
+    let fileName = this.wizardForm.get('ruleName').value || 'MyRule';
+    return fileName += '.drl';
   }
 }

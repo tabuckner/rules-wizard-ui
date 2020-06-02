@@ -1,0 +1,14 @@
+.home {
+  text-align: center;
+
+  &__image {
+    margin-left: auto;
+    margin-right: auto;
+
+    img {
+      width: 100%;
+      max-width: 400px;
+    }
+
+  }
+}
