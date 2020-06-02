@@ -1,7 +1,8 @@
 import { RuleResponse } from 'src/app/models/rule-response';
 
 export const MOCK_RULE_RESPONSE: RuleResponse = {
-rule: `// Copyright (c) 2020 Datical, Inc. All Rights Reserved.
+rule: `
+// Copyright (c) 2020 Datical, Inc. All Rights Reserved.
 /*
 @author Taylor Buckner
 @version 1.0
