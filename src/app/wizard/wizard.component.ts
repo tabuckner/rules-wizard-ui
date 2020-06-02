@@ -7,6 +7,9 @@ import { QuestionTypes } from '../enums/question-types.enum';
 import { ApiService } from '../core/services/api.service';
 import { Observable } from 'rxjs';
 import { RuleResponse } from '../models/rule-response';
+import { MatDialog } from '@angular/material/dialog'
+import { RuleDialogComponent, RuleDialogData } from '../rule-dialog/rule-dialog.component';
+import { FormDefinitionService } from '../core/services/form-definition.service';
 
 interface WizardFormModel {
   ruleType: RuleTypes;
@@ -25,69 +28,21 @@ export class WizardComponent implements OnInit {
   QUESTION_TYPES = QuestionTypes;
   newRule$: Observable<RuleResponse>;
   wizardForm: FormGroup;
-  formDefinition: WizardFormModelDefinition = {
-    steps: [
-      {
-        title: 'Choose Your Path',
-        questions: [
-          {
-            key: 'ruleType',
-            type: QuestionTypes.radio,
-            title: 'What are you looking to do?',
-            options: [
-              { label: 'Search for Certain SQL', value: 'SQLRule' },
-              { label: 'Enforce a Convention', value: 'Conventional' },
-            ]
-          }
-        ]
-      },
-      {
-        title: 'SQL',
-        questions: [
-          {
-            key: 'sql',
-            type: QuestionTypes.longText,
-            title: 'What SQL are we looking for?',
-            label: 'SQL',
-            placeholder: 'EXECUTE ANY'
-          },
-        ]
-      },
-      {
-        title: 'Rule',
-        questions: [
-          {
-            key: 'message',
-            type: QuestionTypes.longText,
-            title: 'What is the message to display to the end user?',
-            label: 'Message'
-          },
-          {
-            key: 'level',
-            type: QuestionTypes.radio,
-            title: 'Rule level (ERROR = Stop, WARN = notify and continue)?',
-            options: [
-              { label: 'Warn', value: LevelTypes.warn },
-              { label: 'Error', value: LevelTypes.fail },
-            ]
-          },
-          {
-            key: 'ruleName',
-            type: QuestionTypes.shortText,
-            title: 'What will this rule be called?',
-            label: 'Rule Name'
-          },
-        ]
-      }
-    ]
-  };
+  formDefinition: WizardFormModelDefinition = this.formDefinitionService.getWizardFormDefinition();
 
   constructor(
     private formBuilder: FormBuilder,
-    private api: ApiService
+    private api: ApiService,
+    private dialogController: MatDialog,
+    private formDefinitionService: FormDefinitionService
   ) { }
 
   ngOnInit(): void {
+    this.initializeWizardForm();
+    this.wizardForm.valueChanges.subscribe(console.warn);
+  }
+
+  private initializeWizardForm() {
     this.wizardForm = this.formBuilder.group({
       ruleType: [undefined, Validators.required],
       ruleName: ['', Validators.required],
@@ -95,13 +50,18 @@ export class WizardComponent implements OnInit {
       message: ['', Validators.required],
       level: ['', Validators.required],
     });
-
-    this.wizardForm.valueChanges.subscribe(console.warn);
   }
 
   public onCreateRule() {
     const formValue = this.wizardForm.value;
-    console.warn('Would Submit', formValue);
-    this.newRule$ = this.api.createRule(formValue);
+    const ruleFileName = this.getRuleFileName();
+    this.api.createRule(formValue).subscribe(data => {
+      const ruleDialogData: RuleDialogData = { rule: data.rule, fileName: ruleFileName };
+      this.dialogController.open(RuleDialogComponent, { data: ruleDialogData });
+    });
+  }
+
+  private getRuleFileName(): string {
+    return this.wizardForm.get('ruleName').value || 'MyRule' + '.drl';
   }
 }

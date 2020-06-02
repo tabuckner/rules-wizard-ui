@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{ ruleData.fileName }}</h1>
+<div mat-dialog-content>
+  <pre><code>{{ ruleData.rule }}</code></pre>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClickClose()">Close</button>
+  <button mat-raised-button cdkFocusInitial (click)="onClickDownload()" color="primary">Download</button>
+</div>

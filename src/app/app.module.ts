@@ -21,6 +21,8 @@ import { ValidatorComponent } from './validator/validator.component';
 import { AboutComponent } from './about/about.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RuleDialogComponent } from './rule-dialog/rule-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     WizardComponent,
     HomeComponent,
     ValidatorComponent,
-    AboutComponent
+    AboutComponent,
+    RuleDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
