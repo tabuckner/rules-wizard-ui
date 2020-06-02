@@ -47,3 +47,5 @@
     </mat-step>
   </mat-horizontal-stepper>
 </form>
+
+<pre *ngIf="newRule$ | async"><code>{{ (newRule$ | async).rule }}</code></pre>

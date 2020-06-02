@@ -4,6 +4,9 @@ import { LevelTypes } from '../enums/level-types.enum';
 import { RuleTypes } from '../enums/rule-types.enum';
 import { WizardFormModelDefinition } from '../models/wizard-form-model-definition';
 import { QuestionTypes } from '../enums/question-types.enum';
+import { ApiService } from '../core/services/api.service';
+import { Observable } from 'rxjs';
+import { RuleResponse } from '../models/rule-response';
 
 interface WizardFormModel {
   ruleType: RuleTypes;
@@ -20,6 +23,7 @@ interface WizardFormModel {
 })
 export class WizardComponent implements OnInit {
   QUESTION_TYPES = QuestionTypes;
+  newRule$: Observable<RuleResponse>;
   wizardForm: FormGroup;
   formDefinition: WizardFormModelDefinition = {
     steps: [
@@ -78,7 +82,10 @@ export class WizardComponent implements OnInit {
     ]
   };
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private api: ApiService
+  ) { }
 
   ngOnInit(): void {
     this.wizardForm = this.formBuilder.group({
@@ -95,5 +102,6 @@ export class WizardComponent implements OnInit {
   public onCreateRule() {
     const formValue = this.wizardForm.value;
     console.warn('Would Submit', formValue);
+    this.newRule$ = this.api.createRule(formValue);
   }
 }
