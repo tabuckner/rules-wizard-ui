@@ -50,3 +50,15 @@
     </mat-step>
   </mat-horizontal-stepper>
 </form>
+
+<div class="separator">
+  <mat-divider></mat-divider>
+  <div class="separator__text">or</div>
+  <mat-divider></mat-divider>
+</div>
+
+<mat-chip-list>
+  <ng-container *ngFor="let example of examples$ | async">
+    <mat-chip (click)="onClickExampleChip(example)">{{ example.ruleName }}</mat-chip>
+  </ng-container>
+</mat-chip-list>

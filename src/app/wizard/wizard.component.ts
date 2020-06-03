@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog'
 import { RuleDialogComponent, RuleDialogData } from '../rule-dialog/rule-dialog.component';
 import { FormDefinitionService } from '../core/services/form-definition.service';
 import { MatStepper } from '@angular/material/stepper';
+import { RuleExample } from '../models/rule-example';
+import { RuleDto } from '../models/rule-dto';
 
 interface WizardFormModel {
   ruleType: RuleTypes;
@@ -28,6 +30,7 @@ export class WizardComponent implements OnInit {
   wizardForm: FormGroup;
   formDefinition: WizardFormModelDefinition = this.formDefinitionService.getWizardFormDefinition();
   @ViewChild('stepper') public stepper: MatStepper;
+  examples$ = this.api.getRuleExamples();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,8 +68,32 @@ export class WizardComponent implements OnInit {
     this.stepper.reset();
   }
 
+  public onClickExampleChip(example: RuleExample) {
+    const ruleFileName = this.ruleNameToRuleFileName(example.ruleName);
+    const mockFormValue: RuleDto = {
+      level: example.level,
+      message: example.message,
+      ruleName: example.ruleName,
+      ruleType: RuleTypes.sqlRule, // FIXME: This is a hack.
+      sql: example.sql,
+    };
+
+    this.api.createRule(mockFormValue).subscribe(data => {
+      const ruleDialogData: RuleDialogData = { rule: data.rule, fileName: ruleFileName };
+      this.dialogController.open(RuleDialogComponent, { data: ruleDialogData });
+    });
+  }
+
   private getRuleFileName(): string {
     let fileName = this.wizardForm.get('ruleName').value || 'MyRule';
     return fileName += '.drl';
+  }
+
+  private ruleNameToRuleFileName(ruleName: string): string {
+    let nameWithoutWhitespace = ruleName.replace(/ +?/g, '');
+    if (nameWithoutWhitespace.length < 1) {
+      nameWithoutWhitespace = 'Example';
+    }
+    return `${nameWithoutWhitespace}.drl`;
   }
 }
