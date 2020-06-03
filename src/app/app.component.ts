@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThemeSwitcherService } from './core/services/theme-switcher.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'rules-wizard-ui';
+  isDark$ = this.themeSwitcher.isDark$;
+
+  constructor(private themeSwitcher: ThemeSwitcherService) {}
 }

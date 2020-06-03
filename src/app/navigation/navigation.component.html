@@ -22,6 +22,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>Rules Wizard</span>
+      <mat-slide-toggle (change)="onThemeSwitch($event)" checked="true"></mat-slide-toggle>
     </mat-toolbar>
     <div class="content-container">
     	<ng-content></ng-content>
