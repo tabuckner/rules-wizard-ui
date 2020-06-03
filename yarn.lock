@@ -5228,6 +5228,11 @@ mdn-data@2.0.6:
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.0.6.tgz#852dc60fcaa5daa2e8cf6c9189c440ed3e042978"
   integrity sha512-rQvjv71olwNHgiTbfPZFkJtjNMciWgswYeciZhtvWLO8bmX3TnhyA62I6sTWOyZssWHJJjY6/KiWwqQsWWsqOA==
 
+mdp-sass@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/mdp-sass/-/mdp-sass-1.0.5.tgz#89a14aaf7b53ff00da4c8b857d95c571c3c6ad1c"
+  integrity sha512-7sWkHGhjLrJP7H3rSjMuPlywVtWKM6OvD1KzeZqzdlLH26LubL8fqPO3p3kLgImQ+NMBigaNwTN1+OsPNruqlQ==
+
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
@@ -5624,6 +5629,11 @@ normalize-url@^3.0.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
+
+normalize.scss@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/normalize.scss/-/normalize.scss-0.1.0.tgz#4a21dc25bd4c019c857785f829b658aba2a8f9ab"
+  integrity sha1-SiHcJb1MAZyFd4X4KbZYq6Ko+as=
 
 npm-bundled@^1.0.1:
   version "1.1.1"

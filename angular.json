@@ -28,9 +28,14 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules/normalize.scss",
+                "node_modules/mdp-sass"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
