@@ -26,7 +26,7 @@ export class ApiService {
       responseType: 'text' as 'json'
     };
 
-    return of(MOCK_RULE_RESPONSE);
+    // return of(MOCK_RULE_RESPONSE);
     return this.http.post(url, {}, options).pipe(
       map(data => ({ rule: data } as RuleResponse))
     );
