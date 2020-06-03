@@ -8,7 +8,15 @@ export class ThemeSwitcherService {
   private _isDark = true;
   public isDark$ = new BehaviorSubject<boolean>(this._isDark);
 
-  constructor() { }
+  constructor() {
+    this.isDark$.subscribe(isDark => {
+      if (isDark) {
+        document.querySelector('body').classList.add('dark-mode');
+      } else {
+        document.querySelector('body').classList.remove('dark-mode');
+      }
+    })
+  }
 
   public setThemeState(isDark: boolean) {
     this._isDark = isDark;

@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { RuleDto } from 'src/app/models/rule-dto';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RuleResponse } from 'src/app/models/rule-response';
 import { map } from 'rxjs/operators';
+import { MOCK_RULE_RESPONSE } from './mocks/MOCK_RULE_RESPONSE';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   // private readonly baseUrl = 'https://rules-hackathon.herokuapp.com/api/rule'; // TODO: Get From Ben
-  private readonly baseUrl = 'http://localhost:8080/api/rule'; // TODO: Get From Ben
+  private readonly baseUrl = 'https://rules-hackathon.herokuapp.com/api/rule'; // TODO: Get From Ben
 
   constructor(private http: HttpClient) { }
 
@@ -25,7 +26,7 @@ export class ApiService {
       responseType: 'text' as 'json'
     };
 
-    // return of(MOCK_RULE_RESPONSE);
+    return of(MOCK_RULE_RESPONSE);
     return this.http.post(url, {}, options).pipe(
       map(data => ({ rule: data } as RuleResponse))
     );
