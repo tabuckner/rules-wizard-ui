@@ -51,10 +51,10 @@ export class FormDefinitionService {
             {
               key: 'level',
               type: QuestionTypes.radio,
-              title: 'Rule level (ERROR = Stop, WARN = notify and continue)?',
+              title: 'Rule level (FAIL = Stop, WARN = notify and continue)?',
               options: [
                 { label: 'Warn', value: LevelTypes.warn },
-                { label: 'Error', value: LevelTypes.fail },
+                { label: 'Fail', value: LevelTypes.fail },
               ]
             },
             {
