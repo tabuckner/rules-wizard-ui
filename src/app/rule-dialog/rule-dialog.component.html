@@ -1,4 +1,9 @@
-<h1 mat-dialog-title>{{ ruleData.fileName }}</h1>
+<h1 mat-dialog-title>
+  {{ ruleData.fileName }}
+  <button mat-icon-button (click)="onClickCopy()">
+    <mat-icon>file_copy</mat-icon>
+  </button>
+</h1>
 <div mat-dialog-content>
   <pre><code>{{ ruleData.rule }}</code></pre>
 </div>
